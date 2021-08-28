@@ -11,6 +11,8 @@ extend, and obey instagram's limits.
 - `dryRun: true` - bot will work everything except liking and following
 - `dryRun: false` - bot will work everything, include liking and following
 
+## Create empty `database` directory so bot can generate json files where data will be stored
+
 - Open a terminal in the directory
 
 - Run `npm i -g yarn`
