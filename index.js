@@ -32,7 +32,7 @@ const options = {
   let browser;
 
   try {
-    browser = await puppeteer.launch({ headless: true });
+    browser = await puppeteer.launch({ headless: false });
 
     const instautoDb = await Instauto.JSONDB({
       followedDbPath: "./database/followed.json",
