@@ -1,4 +1,4 @@
-instauto is an Instagram automation/bot library written in modern, clean
+Instauto is an Instagram automation/bot library written in modern, clean
 javascript using Google's Puppeteer. Goal is to be very easy to set up, use, and
 extend, and obey instagram's limits.
 
@@ -18,15 +18,16 @@ json files where data will be stored
 
 ## Open a terminal in the directory
 
-- Run `npm i -g yarn`
+- Run `npm install`
 
-- Run `npm install puppeteer instauto dotenv`
-
-- Run `node instaBot`
+- Run `node index`
 
 ### You can run this code for example once every day using cron or pm2 or similar!!!
 
 ## Supported functionality
+
+- Fisrtly it will unfollow all users that did not follwed back and then it will
+  continue to iterate through next steps
 
 - Follow the followers of some particular users. (e.g. celebrities.) Parameters
   like max/min ratio for followers/following can be set.

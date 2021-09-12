@@ -10,6 +10,8 @@ const options = {
   username: process.env.INSTA_USERNAME,
   password: process.env.INSTA_PASSWORD,
 
+  //Set restrictions you want
+  //Dont set too high because instagram can
   maxFollowsPerHour: 20,
   maxFollowsPerDay: 150,
   maxLikesPerDay: 200,
@@ -25,6 +27,7 @@ const options = {
   dontUnfollowUntilTimeElapsed: 3 * 24 * 60 * 60 * 1000,
   excludeUsers: [],
 
+  //If dry run is true it will do everything except actions (follow, unfollow, and like)
   dryRun: false,
 };
 
@@ -32,8 +35,10 @@ const options = {
   let browser;
 
   try {
+    //toggle headles to true to work in background
     browser = await puppeteer.launch({ headless: false });
 
+    //Creating JSON databases to store data
     const instautoDb = await Instauto.JSONDB({
       followedDbPath: "./database/followed.json",
       unfollowedDbPath: "./database/unfollowed.json",
@@ -41,6 +46,10 @@ const options = {
     });
 
     const instauto = await Instauto(instautoDb, browser, options);
+
+    //Unfollow all the users that didnt followed back
+    await instauto.unfollowNonMutualFollowers();
+    await instauto.sleep(10 * 60 * 1000);
 
     const unfollowedCount = await instauto.unfollowOldFollowed({
       ageInDays: 3,
