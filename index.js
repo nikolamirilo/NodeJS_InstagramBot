@@ -12,7 +12,7 @@ const options = {
 
   //Set restrictions you want
   //Dont set too high because instagram can
-  maxFollowsPerHour: 20,
+  maxFollowsPerHour: 40,
   maxFollowsPerDay: 150,
   maxLikesPerDay: 200,
 
@@ -36,7 +36,15 @@ const options = {
 
   try {
     //toggle headles to true to work in background
-    browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({
+      headless: false,
+      ignoreHTTPSErrors: true,
+      args: [`--window-size=800,736`], //window size
+      defaultViewport: {
+        width: 780, //set custom browser width in px
+        height: 736, //set custom browser height in px
+      },
+    });
 
     //Creating JSON databases to store data
     const instautoDb = await Instauto.JSONDB({
@@ -51,6 +59,7 @@ const options = {
     await instauto.unfollowNonMutualFollowers();
     await instauto.sleep(10 * 60 * 1000);
 
+    //After 3 days if they dont follow, unfollow them
     const unfollowedCount = await instauto.unfollowOldFollowed({
       ageInDays: 3,
       limit: options.maxFollowsPerDay * (2 / 3),
